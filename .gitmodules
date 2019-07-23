@@ -1,0 +1,6 @@
+[submodule "CfgReader"]
+	path = CfgReader
+	url = https://gitlab.com/itvr/CfgReader.git
+[submodule "cfg-editor"]
+	path = cfg-editor
+	url = https://gitlab.com/itvr/cfg-editor.git

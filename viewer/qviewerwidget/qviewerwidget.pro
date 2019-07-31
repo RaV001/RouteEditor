@@ -1,20 +1,25 @@
-TEMPLATE = app
-
-CONFIG += qt
+DEFINES += QVIEWER_WIDGET_LIB 
 
 QT += core
 QT += gui
-QT += widgets
-QT += network
 
-TARGET = viewer
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-DESTDIR = ../../../bin
+QT += opengl
+
+TARGET = QOSGViewerWidget
+TEMPLATE = lib
+
+DEFINES += QT_DEPRECATED_WARNINGS
+
+CONFIG += c++11
+
+DESTDIR = ../../lib
 
 win32 {
 
     OSG_LIB_DIRECTORY = $$(OSG_BIN_PATH)
-    OSG_INCLUDE_DIRECTORY = $(OSG_INCLUDE_PATH)
+    OSG_INCLUDE_DIRECTORY = $$(OSG_INCLUDE_PATH)
 
 
     CONFIG(debug, debug|release) {
@@ -26,10 +31,7 @@ win32 {
         LIBS += -L$$OSG_LIB_DIRECTORY -losgDBd
         LIBS += -L$$OSG_LIB_DIRECTORY -lOpenThreadsd
         LIBS += -L$$OSG_LIB_DIRECTORY -losgGAd
-        LIBS += -L$$OSG_LIB_DIRECTORY -losgUtild
-        LIBS += -L$$OSG_LIB_DIRECTORY -losgTextd
-
-        LIBS += -L../../../lib -lroute-loader_d
+        LIBS += -L$$OSG_LIB_DIRECTORY -losgQt5d
 
     } else {
 
@@ -38,13 +40,8 @@ win32 {
         LIBS += -L$$OSG_LIB_DIRECTORY -losgDB
         LIBS += -L$$OSG_LIB_DIRECTORY -lOpenThreads
         LIBS += -L$$OSG_LIB_DIRECTORY -losgGA
-        LIBS += -L$$OSG_LIB_DIRECTORY -losgUtil
-        LIBS += -L$$OSG_LIB_DIRECTORY -losgText
-
-        LIBS += -L../../../lib -lroute-loader
+        LIBS += -L$$OSG_LIB_DIRECTORY -losgQt5
     }
-
-    LIBS += -lopengl32 -lglu32
 
     INCLUDEPATH += $$OSG_INCLUDE_DIRECTORY
 }
@@ -60,10 +57,7 @@ unix {
         LIBS += -losgDBd
         LIBS += -lOpenThreadsd
         LIBS += -losgGAd
-        LIBS += -losgUtild
-        LIBS += -losgTextd
-
-        LIBS += -L../../../lib -lroute-loader_d
+        LIBS += -losgQt5d
 
     } else {
 
@@ -72,16 +66,10 @@ unix {
         LIBS +=  -losgDB
         LIBS +=  -lOpenThreads
         LIBS +=  -losgGA
-        LIBS +=  -losgUtil
-        LIBS += -losgText
-
-        LIBS += -L../../../lib -lroute-loader
+        LIBS +=  -losgQt5
     }
-
-    LIBS += -lGL
 }
 
-INCLUDEPATH += ../route-loader/include
 INCLUDEPATH += ./include
 
 HEADERS += $$files(./include/*.h)

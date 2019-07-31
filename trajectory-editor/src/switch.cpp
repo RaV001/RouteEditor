@@ -1,10 +1,10 @@
 #include "switch.h"
 
 Switch::Switch()
-    : FwdPositiveTraj(nullptr)
-    , FwdNegativeTraj(nullptr)
-    , BwdPositiveTraj(nullptr)
-    , BwdNegativeTraj(nullptr)
+    : FwdPositiveTraj(Q_NULLPTR)
+    , FwdNegativeTraj(Q_NULLPTR)
+    , BwdPositiveTraj(Q_NULLPTR)
+    , BwdNegativeTraj(Q_NULLPTR)
     , state("")
 {
 

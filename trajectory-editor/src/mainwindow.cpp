@@ -45,10 +45,19 @@ void MainWindow::slotQuit()
 }
 
 //------------------------------------------------------------------------------
-//
+//Обработчик загрузки маршрута с боковыми развязками
 //------------------------------------------------------------------------------
 void MainWindow::slotOpen()
 {
+    QString path = QFileDialog::getExistingDirectory(Q_NULLPTR,
+                                                     tr("Open route"),
+                                                     openPath);
+    if (path.isEmpty())
+        return;
+
+    openPath = path;
+    settings->setValue("importPath", openPath);
+
 
 }
 
@@ -61,7 +70,7 @@ void MainWindow::slotSave()
 }
 
 //------------------------------------------------------------------------------
-//
+//Обработчик загрузки исходного маршрута
 //------------------------------------------------------------------------------
 void MainWindow::slotImport()
 {

@@ -2,12 +2,12 @@ TEMPLATE = lib
 
 CONFIG += qt
 
-CONFIG += plugin
-CONFIG += no_plugin_name_prefix
+#CONFIG += plugin
+#CONFIG += no_plugin_name_prefix
 
 TARGET = zds-route-loader
 
-DESTDIR = ../../../plugins
+DESTDIR = ../../../lib
 
 win32 {
 
@@ -16,6 +16,8 @@ win32 {
 
 
     CONFIG(debug, debug|release) {
+
+        TARGET = $$join(TARGET,,,_d)
 
         LIBS += -L$$OSG_LIB_DIRECTORY -losgd
         LIBS += -L$$OSG_LIB_DIRECTORY -losgViewerd
@@ -44,6 +46,8 @@ win32 {
 unix {
 
     CONFIG(debug, debug|release) {
+
+        TARGET = $$join(TARGET,,,_d)
 
         LIBS += -losgd
         LIBS += -losgViewerd

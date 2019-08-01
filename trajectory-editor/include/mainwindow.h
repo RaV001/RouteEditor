@@ -8,6 +8,9 @@
 
 #include    "qviewerwidget.h"
 
+#include    "abstract-loader.h"
+#include    "scene-loader.h"
+
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
@@ -35,6 +38,8 @@ private:
 
     QViewerWidget       *viewerWidget;
 
+    osg::ref_ptr<osg::Group> root;
+
     QString             openPath;
     QString             savePath;
     QString             importPath;
@@ -47,6 +52,8 @@ private:
     void paintEvent(QPaintEvent *);
 
     void timerEvent(QTimerEvent *);
+
+    void clean();
 
 private slots:
 

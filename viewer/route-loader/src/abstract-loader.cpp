@@ -34,3 +34,15 @@ osg::Group *RouteLoader::getRoot()
     else
         return nullptr;
 }
+
+//------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------
+void RouteLoader::clean()
+{
+    if(!root.valid())
+        return;
+
+    for(size_t i = 0; i < root->getNumChildren(); ++i)
+          root->removeChild(i);
+}

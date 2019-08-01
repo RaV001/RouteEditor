@@ -26,7 +26,6 @@
     #define ROUTE_LOADER_EXPORT Q_DECL_IMPORT
 #endif
 
-#include    "abstract-trajectory.h"
 #include    "abstract-path.h"
 
 //------------------------------------------------------------------------------
@@ -56,6 +55,8 @@ public:
     virtual osg::Group *getRoot();        
 
     virtual MotionPath *getMotionPath(int direction) = 0;
+
+    void clean();
 
 protected:    
 

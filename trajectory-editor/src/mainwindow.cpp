@@ -57,6 +57,15 @@ void MainWindow::timerEvent(QTimerEvent *)
     QMainWindow::update();
 }
 
+void MainWindow::clean()
+{
+    //if(!root.valid())
+        //return;
+    for(size_t i = 0; i < viewerWidget->getScene()->getNumChildren(); ++i)
+        viewerWidget->getScene()->removeChild(i);
+
+}
+
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
@@ -96,6 +105,8 @@ void MainWindow::slotSave()
 //------------------------------------------------------------------------------
 void MainWindow::slotImport()
 {
+    clean();
+
     QString path = QFileDialog::getExistingDirectory(Q_NULLPTR,
                                                      tr("Import ZDS route"),
                                                      importPath,
@@ -112,4 +123,13 @@ void MainWindow::slotImport()
 
     zds_traj2 = new Trajectory();
     zds_traj2->load(path + QDir::separator() + "route2.trk");
+
+    osg::ref_ptr<RouteLoader> loader = new SceneLoader();
+
+    loader->load(importPath.toStdString(), 1000.0f);
+
+    root = loader->getRoot();
+
+    viewerWidget->getScene()->addChild(root.get());
+
 }

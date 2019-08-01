@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
   , ui(new Ui::MainWindow)
+  , viewerWidget(Q_NULLPTR)
   , openPath("./")
   , savePath("./")
   , importPath("./")
@@ -18,6 +19,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     ui->setupUi(this);
 
+    QGridLayout *layout = new QGridLayout;
+    viewerWidget = new QViewerWidget(QRect(0, 0, ui->frame->width(), ui->frame->height()));
+    layout->addWidget(viewerWidget);
+    layout->setHorizontalSpacing(0);
+    layout->setVerticalSpacing(0);
+    ui->frame->setLayout(layout);
+
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::slotQuit);
     connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::slotOpen);
     connect(ui->actionSave, &QAction::triggered, this, &MainWindow::slotSave);
@@ -26,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     openPath = settings->value("openPath", QDir::homePath()).toString();
     savePath = settings->value("savePath", QDir::homePath()).toString();
     importPath = settings->value("importPath", QDir::homePath()).toString();
+
+    startTimer(40);
 }
 
 //------------------------------------------------------------------------------
@@ -34,6 +44,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::paintEvent(QPaintEvent *)
+{
+    ui->frame->update();
+
+}
+
+void MainWindow::timerEvent(QTimerEvent *)
+{
+    QMainWindow::update();
 }
 
 //------------------------------------------------------------------------------
@@ -45,13 +66,14 @@ void MainWindow::slotQuit()
 }
 
 //------------------------------------------------------------------------------
-//Обработчик загрузки маршрута с боковыми развязками
+//Обработчик загрузки маршрута с боковыми путями
 //------------------------------------------------------------------------------
 void MainWindow::slotOpen()
 {
     QString path = QFileDialog::getExistingDirectory(Q_NULLPTR,
                                                      tr("Open route"),
-                                                     openPath);
+                                                     openPath,
+                                                     QFileDialog::Option::ReadOnly);
     if (path.isEmpty())
         return;
 
@@ -76,7 +98,8 @@ void MainWindow::slotImport()
 {
     QString path = QFileDialog::getExistingDirectory(Q_NULLPTR,
                                                      tr("Import ZDS route"),
-                                                     importPath);
+                                                     importPath,
+                                                     QFileDialog::Option::ReadOnly);
 
     if (path.isEmpty())
         return;

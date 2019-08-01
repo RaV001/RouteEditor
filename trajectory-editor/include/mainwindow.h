@@ -6,6 +6,8 @@
 
 #include    "trajectory.h"
 
+#include    "qviewerwidget.h"
+
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
@@ -31,6 +33,8 @@ private:
 
     Ui::MainWindow      *ui;
 
+    QViewerWidget       *viewerWidget;
+
     QString             openPath;
     QString             savePath;
     QString             importPath;
@@ -39,6 +43,10 @@ private:
 
     Trajectory          *zds_traj1;
     Trajectory          *zds_traj2;
+
+    void paintEvent(QPaintEvent *);
+
+    void timerEvent(QTimerEvent *);
 
 private slots:
 

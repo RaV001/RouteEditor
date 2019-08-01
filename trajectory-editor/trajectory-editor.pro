@@ -1,5 +1,6 @@
 QT  += core
 QT  += gui
+QT  += opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -39,7 +40,7 @@ win32 {
         LIBS += -L$$OSG_LIB_DIRECTORY -losgQt5d
         LIBS += -L$$OSG_LIB_DIRECTORY -losgAnimationd
 
-        #LIBS += -L../../lib -lQOSGViewerWidget_d
+        LIBS += -L../../lib -lQOSGViewerWidget_d
 
     } else {
 
@@ -51,7 +52,7 @@ win32 {
         LIBS += -L$$OSG_LIB_DIRECTORY -losgQt5
         LIBS += -L$$OSG_LIB_DIRECTORY -losgAnimation
 
-        #LIBS += -L../../lib -lQOSGViewerWidget
+        LIBS += -L../../lib -lQOSGViewerWidget
     }
 
     INCLUDEPATH += $$OSG_INCLUDE_DIRECTORY
@@ -71,7 +72,7 @@ unix {
         LIBS += -losgQt5d
         LIBS += -losgAnimationd
 
-        #LIBS += -L../../lib -lQOSGViewerWidget_d
+        LIBS += -L../../lib -lQOSGViewerWidget_d
 
     } else {
 
@@ -83,11 +84,12 @@ unix {
         LIBS +=  -losgQt5
         LIBS +=  -losgAnimation
 
-        #LIBS += -L../../lib -lQOSGViewerWidget
+        LIBS += -L../../lib -lQOSGViewerWidget
     }
 }
 
 INCLUDEPATH += ./include
+INCLUDEPATH += ../viewer/qviewerwidget/include
 
 SOURCES += $$files(./src/*.cpp)
 

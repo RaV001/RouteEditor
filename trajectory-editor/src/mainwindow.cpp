@@ -15,8 +15,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
   , savePath("./")
   , importPath("./")
   , settings(new QSettings)
-  , zds_traj1(Q_NULLPTR)
-  , zds_traj2(Q_NULLPTR)
+
 {
     ui->setupUi(this);
 
@@ -112,7 +111,6 @@ void MainWindow::slotImport()
                                                      tr("Import ZDS route"),
                                                      importPath,
                                                      QFileDialog::Option::ReadOnly);
-
     if (path.isEmpty())
         return;
 
@@ -121,11 +119,17 @@ void MainWindow::slotImport()
     importPath = path;
     settings->setValue("importPath", importPath);
 
-    zds_traj1 = new Trajectory();
-    zds_traj1->load(path + QDir::separator() + "route1.trk");
+    Trajectory *zds_traj1 = new Trajectory();
+    zds_traj1->load(path + QDir::separator() + ROUTE1 + ".trk");
 
-    zds_traj2 = new Trajectory();
-    zds_traj2->load(path + QDir::separator() + "route2.trk");
+    traj_tree1 = new TrajectoryTree();
+    traj_tree1->addTrajectory(ROUTE1, zds_traj1);
+
+    Trajectory *zds_traj2 = new Trajectory();
+    zds_traj2->load(path + QDir::separator() + ROUTE2 + ".trk");
+
+    traj_tree2 = new TrajectoryTree();
+    traj_tree2->addTrajectory(ROUTE2, zds_traj2);
 
     osg::ref_ptr<RouteLoader> loader = new SceneLoader();
 

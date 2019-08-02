@@ -10,6 +10,7 @@
 
 #include    "abstract-loader.h"
 #include    "scene-loader.h"
+#include    "trajectorytree.h"
 
 //------------------------------------------------------------------------------
 //
@@ -34,20 +35,23 @@ public:
 
 private:
 
+    const QString ROUTE1 = "route1";
+    const QString ROUTE2 = "route2";
+
     Ui::MainWindow      *ui;
 
     QViewerWidget       *viewerWidget;
 
     osg::ref_ptr<osg::Group> root;
 
+    TrajectoryTree      *traj_tree1;
+    TrajectoryTree      *traj_tree2;
+
     QString             openPath;
     QString             savePath;
     QString             importPath;
 
     QSettings           *settings;
-
-    Trajectory          *zds_traj1;
-    Trajectory          *zds_traj2;
 
     void paintEvent(QPaintEvent *);
 

@@ -20,6 +20,11 @@ QString Switch::getState() const
     return state;
 }
 
+QString Switch::changeState()
+{
+
+}
+
 Trajectory *Switch::getFwdPositiveTraj() const
 {
     return FwdPositiveTraj;

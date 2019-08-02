@@ -15,10 +15,11 @@
 #ifndef		ABSTRACT_LOADER_H
 #define		ABSTRACT_LOADER_H
 
-#include    <osg/Referenced>
 #include    <osg/Group>
 #include    <osgGA/GUIEventHandler>
 #include    <QtGlobal>
+
+#include    <QObject>
 
 #ifdef ROUTE_LOADER_LIB
     #define ROUTE_LOADER_EXPORT Q_DECL_EXPORT
@@ -41,12 +42,15 @@ enum ReadResult
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-class ROUTE_LOADER_EXPORT RouteLoader : public osg::Referenced
+class ROUTE_LOADER_EXPORT RouteLoader : public QObject
 {
+    Q_OBJECT
 public:
 
     /// Constructor
     RouteLoader();
+
+    virtual ~RouteLoader() {}
 
     /// Load route
     virtual void load(std::string routeDir, float view_dist = 1000.0f) = 0;
@@ -58,6 +62,10 @@ public:
 
     void clean();
 
+ signals:
+
+    void logMessage(QString msg);
+
 protected:    
 
     /// Route directory
@@ -67,10 +75,11 @@ protected:
     osg::ref_ptr<osg::Group>    root;        
 
     /// Destructor
-    virtual ~RouteLoader() {}
 
     /// Load data from route config file
     virtual ReadResult loadDataFile(const std::string &filepath) = 0;
+
+
 };
 
 //------------------------------------------------------------------------------

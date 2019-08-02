@@ -11,12 +11,12 @@ TrajectoryTree::~TrajectoryTree()
 
 }
 
-QMap<QString, Trajectory *> TrajectoryTree::getTrajTree()
+QMap<QString, Trajectory *> TrajectoryTree::getTrajTree() const
 {
     return traj_tree;
 }
 
-void TrajectoryTree::addTrajectory(QString name, Trajectory *traj)
+void TrajectoryTree::addTrajectory(const QString &name, Trajectory *traj)
 {
     traj_tree.insert(name, traj);
 }

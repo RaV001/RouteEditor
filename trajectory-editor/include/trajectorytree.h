@@ -11,9 +11,9 @@ public:
     TrajectoryTree();
    ~TrajectoryTree();
 
-    QMap<QString, Trajectory *> getTrajTree();
+    QMap<QString, Trajectory *> getTrajTree() const;
 
-    void addTrajectory(QString name, Trajectory *traj);
+    void addTrajectory(const QString &name, Trajectory *traj);
 
 private:
     QMap<QString, Trajectory *> traj_tree;

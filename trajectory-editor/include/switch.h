@@ -11,6 +11,8 @@ public:
 
 QString getState() const;
 
+QString changeState();
+
 Trajectory *getFwdPositiveTraj() const;
 Trajectory *getFwdNegativeTraj() const;
 Trajectory *getBwdPositiveTraj() const;

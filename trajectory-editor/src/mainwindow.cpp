@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
   , ui(new Ui::MainWindow)
   , viewerWidget(Q_NULLPTR)
   , root(Q_NULLPTR)
+  , traj_tree1(Q_NULLPTR)
+  , traj_tree2(Q_NULLPTR)
   , openPath("./")
   , savePath("./")
   , importPath("./")
@@ -131,12 +133,14 @@ void MainWindow::slotImport()
     traj_tree2 = new TrajectoryTree();
     traj_tree2->addTrajectory(ROUTE2, zds_traj2);
 
-    osg::ref_ptr<RouteLoader> loader = new SceneLoader();
+    RouteLoader *loader = new SceneLoader();
 
     loader->load(importPath.toStdString(), 1000.0f);
 
     root = loader->getRoot();
 
     viewerWidget->getScene()->addChild(root.get());
+
+    delete loader;
 
 }

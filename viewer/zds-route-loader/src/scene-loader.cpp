@@ -74,8 +74,10 @@ ReadResult SceneLoader::loadDataFile(const std::string &filepath)
     std::string fileName = osgDB::findDataFile(filepath);
 
     if (fileName.empty())
+    {
+        emit logMessage(tr("File not found"));
         return FILE_NOT_FOUND;
-
+    }
     std::ifstream stream(fileName.c_str(), std::ios::in);
 
     if (!stream)

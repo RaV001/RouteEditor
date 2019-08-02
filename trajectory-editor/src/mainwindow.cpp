@@ -10,6 +10,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
   , ui(new Ui::MainWindow)
   , viewerWidget(Q_NULLPTR)
+  , root(Q_NULLPTR)
   , openPath("./")
   , savePath("./")
   , importPath("./")
@@ -36,6 +37,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     importPath = settings->value("importPath", QDir::homePath()).toString();
 
     startTimer(40);
+
+    ui->actionOpen->setVisible(false); //временно, дабы не путаться при импорте)
 }
 
 //------------------------------------------------------------------------------
@@ -59,10 +62,9 @@ void MainWindow::timerEvent(QTimerEvent *)
 
 void MainWindow::clean()
 {
-    //if(!root.valid())
-        //return;
-    for(size_t i = 0; i < viewerWidget->getScene()->getNumChildren(); ++i)
-        viewerWidget->getScene()->removeChild(i);
+    if(root.valid())
+        for(size_t i = 0; i < viewerWidget->getScene()->getNumChildren(); ++i)
+            viewerWidget->getScene()->removeChild(i);
 
 }
 
@@ -105,7 +107,6 @@ void MainWindow::slotSave()
 //------------------------------------------------------------------------------
 void MainWindow::slotImport()
 {
-    clean();
 
     QString path = QFileDialog::getExistingDirectory(Q_NULLPTR,
                                                      tr("Import ZDS route"),
@@ -114,6 +115,8 @@ void MainWindow::slotImport()
 
     if (path.isEmpty())
         return;
+
+    clean();
 
     importPath = path;
     settings->setValue("importPath", importPath);

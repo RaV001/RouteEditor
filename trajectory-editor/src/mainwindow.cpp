@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
   , savePath("./")
   , importPath("./")
   , settings(new QSettings)
+  , view_dist(1000.0f)
 
 {
     ui->setupUi(this);
@@ -135,7 +136,9 @@ void MainWindow::slotImport()
 
     RouteLoader *loader = new SceneLoader();
 
-    loader->load(importPath.toStdString(), 1000.0f);
+    connect(loader, SIGNAL(logMessage(QString)), this, SLOT(slotLogMessage(QString)));
+
+    loader->load(importPath.toStdString(), view_dist);
 
     root = loader->getRoot();
 
@@ -143,4 +146,10 @@ void MainWindow::slotImport()
 
     delete loader;
 
+}
+
+void MainWindow::slotLogMessage(QString msg)
+{
+    ui->listWidget->addItem(msg);
+    //ui->listWidget->item(0)->setForeground(Qt::red);
 }

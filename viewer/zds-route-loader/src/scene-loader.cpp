@@ -81,8 +81,10 @@ ReadResult SceneLoader::loadDataFile(const std::string &filepath)
     std::ifstream stream(fileName.c_str(), std::ios::in);
 
     if (!stream)
+    {
+        emit logMessage(tr("File not handled"));
         return FILE_NOT_HANDLED;
-
+    }
     std::string ext = osgDB::getLowerCaseFileExtension(fileName);
 
     if (ext == "ref")
@@ -95,6 +97,7 @@ ReadResult SceneLoader::loadDataFile(const std::string &filepath)
         return loadObjectMap(stream);
     }
 
+    emit logMessage(tr("File not handled"));
     return FILE_NOT_HANDLED;
 }
 
@@ -181,7 +184,7 @@ ReadResult SceneLoader::loadObjectRef(std::istream &stream)
 
         objectRef.insert(std::pair<std::string, object_ref_t>(object.name, object));
     }
-
+    emit logMessage(tr("File read success"));
     return FILE_READ_SUCCESS;
 }
 
@@ -249,6 +252,7 @@ ReadResult SceneLoader::loadObjectMap(std::istream &stream)
         }
     }
 
+    emit logMessage(tr("File read success"));
     return FILE_READ_SUCCESS;
 }
 

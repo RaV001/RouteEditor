@@ -45,6 +45,7 @@ enum ReadResult
 class ROUTE_LOADER_EXPORT RouteLoader : public QObject
 {
     Q_OBJECT
+
 public:
 
     /// Constructor
@@ -78,8 +79,6 @@ protected:
 
     /// Load data from route config file
     virtual ReadResult loadDataFile(const std::string &filepath) = 0;
-
-
 };
 
 //------------------------------------------------------------------------------

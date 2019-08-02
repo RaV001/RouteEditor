@@ -53,6 +53,8 @@ private:
 
     QSettings           *settings;
 
+    float               view_dist;
+
     void paintEvent(QPaintEvent *);
 
     void timerEvent(QTimerEvent *);
@@ -68,6 +70,8 @@ private slots:
     void slotSave();
 
     void slotImport();
+
+    void slotLogMessage(QString msg);
 };
 
 #endif // MAINWINDOW_H

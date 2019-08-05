@@ -35,16 +35,21 @@ SceneLoader::SceneLoader() : RouteLoader()
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-void SceneLoader::load(std::string routeDir, float view_dist)
+bool SceneLoader::load(std::string routeDir, float view_dist)
 {    
     this->routeDir = getNativePath(routeDir);
     view_distance = view_dist;
 
-    loadDataFile(this->routeDir + separator() + "objects.ref");
-    loadDataFile(this->routeDir + separator() + "route1.map");
+    ReadResult res_ref = loadDataFile(this->routeDir + separator() + "objects.ref");
+    ReadResult res_map = loadDataFile(this->routeDir + separator() + "route1.map");
 
     osg::ref_ptr<Skybox> skybox = new Skybox;
     skybox->load(this->routeDir, root.get());
+
+    if(res_ref == ReadResult::FILE_READ_SUCCESS && res_map == ReadResult::FILE_READ_SUCCESS)
+        return true;
+    else
+        return  false;
 }
 
 //------------------------------------------------------------------------------
@@ -75,14 +80,14 @@ ReadResult SceneLoader::loadDataFile(const std::string &filepath)
 
     if (fileName.empty())
     {
-        emit logMessage(tr("File not found"));
+        emit logMessage((tr("File not found in the path ") + QString::fromStdString(filepath)), Qt::red);
         return FILE_NOT_FOUND;
     }
     std::ifstream stream(fileName.c_str(), std::ios::in);
 
     if (!stream)
     {
-        emit logMessage(tr("File not handled"));
+        emit logMessage((tr("File not handled ") + QString::fromStdString(filepath)), Qt::red);
         return FILE_NOT_HANDLED;
     }
     std::string ext = osgDB::getLowerCaseFileExtension(fileName);
@@ -97,7 +102,7 @@ ReadResult SceneLoader::loadDataFile(const std::string &filepath)
         return loadObjectMap(stream);
     }
 
-    emit logMessage(tr("File not handled"));
+    emit logMessage((tr("File not handled ") + QString::fromStdString(filepath)), Qt::red);
     return FILE_NOT_HANDLED;
 }
 
@@ -184,7 +189,7 @@ ReadResult SceneLoader::loadObjectRef(std::istream &stream)
 
         objectRef.insert(std::pair<std::string, object_ref_t>(object.name, object));
     }
-    emit logMessage(tr("File read success"));
+    emit logMessage((tr("File read success ") + "objects.ref"), Qt::blue);
     return FILE_READ_SUCCESS;
 }
 
@@ -252,7 +257,7 @@ ReadResult SceneLoader::loadObjectMap(std::istream &stream)
         }
     }
 
-    emit logMessage(tr("File read success"));
+    emit logMessage((tr("File read success ") + "route1.map"), Qt::blue);
     return FILE_READ_SUCCESS;
 }
 

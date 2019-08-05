@@ -37,7 +37,7 @@ public:
     /// Constructor for load route
     SceneLoader();
 
-    void load(std::string routeDir, float view_dist = 1000.0f);
+    bool load(std::string routeDir, float view_dist = 1000.0f);
 
     MotionPath *getMotionPath(int direction);
 

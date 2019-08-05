@@ -54,7 +54,7 @@ public:
     virtual ~RouteLoader() {}
 
     /// Load route
-    virtual void load(std::string routeDir, float view_dist = 1000.0f) = 0;
+    virtual bool load(std::string routeDir, float view_dist = 1000.0f) = 0;
 
     /// Get route scene group node
     virtual osg::Group *getRoot();        
@@ -65,7 +65,7 @@ public:
 
  signals:
 
-    void logMessage(QString msg);
+    void logMessage(QString msg, Qt::GlobalColor color);
 
 protected:    
 

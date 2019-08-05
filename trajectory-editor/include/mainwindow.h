@@ -71,7 +71,7 @@ private slots:
 
     void slotImport();
 
-    void slotLogMessage(QString msg);
+    void slotLogMessage(QString msg, Qt::GlobalColor color);
 };
 
 #endif // MAINWINDOW_H

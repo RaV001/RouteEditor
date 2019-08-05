@@ -68,6 +68,7 @@ void MainWindow::clean()
         for(size_t i = 0; i < viewerWidget->getScene()->getNumChildren(); ++i)
             viewerWidget->getScene()->removeChild(i);
 
+    ui->listWidget->clear();
 }
 
 //------------------------------------------------------------------------------
@@ -117,7 +118,7 @@ void MainWindow::slotImport()
     if (path.isEmpty())
         return;
 
-    clean();
+    clean();    
 
     importPath = path;
     settings->setValue("importPath", importPath);
@@ -136,20 +137,23 @@ void MainWindow::slotImport()
 
     RouteLoader *loader = new SceneLoader();
 
-    connect(loader, SIGNAL(logMessage(QString)), this, SLOT(slotLogMessage(QString)));
+    connect(loader, SIGNAL(logMessage(QString, Qt::GlobalColor)), this, SLOT(slotLogMessage(QString, Qt::GlobalColor)));
 
-    loader->load(importPath.toStdString(), view_dist);
+    if(loader->load(importPath.toStdString(), view_dist))
+    {
+        root = loader->getRoot();
 
-    root = loader->getRoot();
-
-    viewerWidget->getScene()->addChild(root.get());
+        viewerWidget->getScene()->addChild(root.get());
+    }
 
     delete loader;
 
 }
 
-void MainWindow::slotLogMessage(QString msg)
+void MainWindow::slotLogMessage(QString msg, Qt::GlobalColor color)
 {
     ui->listWidget->addItem(msg);
-    //ui->listWidget->item(0)->setForeground(Qt::red);
+
+    for(size_t i = 0; i < ui->listWidget->count(); ++i)
+        ui->listWidget->item(i)->setForeground(color);
 }

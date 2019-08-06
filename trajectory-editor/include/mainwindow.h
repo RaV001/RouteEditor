@@ -3,6 +3,7 @@
 
 #include    <QMainWindow>
 #include    <QSettings>
+#include    <QTreeWidget>
 
 #include    "trajectory.h"
 
@@ -72,6 +73,8 @@ private slots:
     void slotImport();
 
     void slotLogMessage(QString msg, Qt::GlobalColor color);
+
+    void slotItemClick(QTreeWidgetItem * item, int column);
 };
 
 #endif // MAINWINDOW_H

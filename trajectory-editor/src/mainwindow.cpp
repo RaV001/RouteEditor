@@ -68,6 +68,7 @@ void MainWindow::clean()
         for(size_t i = 0; i < viewerWidget->getScene()->getNumChildren(); ++i)
             viewerWidget->getScene()->removeChild(i);
 
+    ui->treeWidget->clear();
     ui->listWidget->clear();
 }
 
@@ -118,29 +119,41 @@ void MainWindow::slotImport()
     if (path.isEmpty())
         return;
 
-    clean();    
-
-    importPath = path;
-    settings->setValue("importPath", importPath);
-
-    Trajectory *zds_traj1 = new Trajectory();
-    zds_traj1->load(path + QDir::separator() + ROUTE1 + ".trk");
-
-    traj_tree1 = new TrajectoryTree();
-    traj_tree1->addTrajectory(ROUTE1, zds_traj1);
-
-    Trajectory *zds_traj2 = new Trajectory();
-    zds_traj2->load(path + QDir::separator() + ROUTE2 + ".trk");
-
-    traj_tree2 = new TrajectoryTree();
-    traj_tree2->addTrajectory(ROUTE2, zds_traj2);
+    clean();
 
     RouteLoader *loader = new SceneLoader();
 
-    connect(loader, SIGNAL(logMessage(QString, Qt::GlobalColor)), this, SLOT(slotLogMessage(QString, Qt::GlobalColor)));
+    connect(loader, SIGNAL(logMessage(QString, Qt::GlobalColor)),
+            this, SLOT(slotLogMessage(QString, Qt::GlobalColor)));
 
-    if(loader->load(importPath.toStdString(), view_dist))
+    if(loader->load(path.toStdString(), view_dist))
     {
+
+        importPath = path;
+        settings->setValue("importPath", importPath);
+
+        Trajectory *zds_traj1 = new Trajectory();
+        zds_traj1->load(path + QDir::separator() + ROUTE1 + ".trk");
+
+        traj_tree1 = new TrajectoryTree();
+        traj_tree1->addTrajectory(ROUTE1, zds_traj1);
+
+        QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget);
+        QString key = traj_tree1->getTrajTree().keys()[0];
+
+        item->setText(0, key);
+
+        Trajectory *zds_traj2 = new Trajectory();
+        zds_traj2->load(path + QDir::separator() + ROUTE2 + ".trk");
+
+        traj_tree2 = new TrajectoryTree();
+        traj_tree2->addTrajectory(ROUTE2, zds_traj2);
+
+        QTreeWidgetItem *item2 = new QTreeWidgetItem(ui->treeWidget);
+        QString key2 = traj_tree2->getTrajTree().keys()[0];
+
+        item2->setText(0, key2);
+
         root = loader->getRoot();
 
         viewerWidget->getScene()->addChild(root.get());
@@ -156,4 +169,9 @@ void MainWindow::slotLogMessage(QString msg, Qt::GlobalColor color)
 
     for(size_t i = 0; i < ui->listWidget->count(); ++i)
         ui->listWidget->item(i)->setForeground(color);
+}
+
+void MainWindow::slotItemClick(QTreeWidgetItem *item, int column)
+{
+
 }

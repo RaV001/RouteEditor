@@ -12,6 +12,7 @@
 #include    "abstract-loader.h"
 #include    "scene-loader.h"
 #include    "trajectorytree.h"
+#include    "draw-trajectory-funcs.h"
 
 //------------------------------------------------------------------------------
 //
@@ -74,7 +75,7 @@ private slots:
 
     void slotLogMessage(QString msg, Qt::GlobalColor color);
 
-    void slotItemClick(QTreeWidgetItem * item, int column);
+    void slotItemChanged();
 };
 
 #endif // MAINWINDOW_H

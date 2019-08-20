@@ -34,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(ui->actionSave, &QAction::triggered, this, &MainWindow::slotSave);
     connect(ui->actionImport_ZDS_route, &QAction::triggered, this, &MainWindow::slotImport);
 
+    connect(ui->treeWidget, SIGNAL(itemSelectionChanged()),this, SLOT(slotItemChanged()));
+
     openPath = settings->value("openPath", QDir::homePath()).toString();
     savePath = settings->value("savePath", QDir::homePath()).toString();
     importPath = settings->value("importPath", QDir::homePath()).toString();
@@ -41,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     startTimer(40);
 
     ui->actionOpen->setVisible(false); //временно, дабы не путаться при импорте)
+
 }
 
 //------------------------------------------------------------------------------
@@ -156,7 +159,13 @@ void MainWindow::slotImport()
 
         root = loader->getRoot();
 
+        osg::ref_ptr<osg::Geode> line = drawLineTraj(zds_traj1->getNodes());
+        osg::ref_ptr<osg::Geode> line2 = drawLineTraj(zds_traj2->getNodes());
+
         viewerWidget->getScene()->addChild(root.get());
+        viewerWidget->getScene()->addChild(line.get());
+        viewerWidget->getScene()->addChild(line2.get());
+
     }
 
     delete loader;
@@ -171,7 +180,7 @@ void MainWindow::slotLogMessage(QString msg, Qt::GlobalColor color)
         ui->listWidget->item(i)->setForeground(color);
 }
 
-void MainWindow::slotItemClick(QTreeWidgetItem *item, int column)
+void MainWindow::slotItemChanged()
 {
-
+    ui->listWidget->addItem("привет");
 }

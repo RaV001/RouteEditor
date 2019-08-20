@@ -91,6 +91,11 @@ osg::Vec3 Trajectory::getPosition(float railway_coord,
     return track->getPosition(railway_coord);
 }
 
+std::vector<osg::Vec3 *> Trajectory::getNodes() const
+{
+    return nodes;
+}
+
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------

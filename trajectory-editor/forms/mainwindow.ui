@@ -31,7 +31,7 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>250</width>
+              <width>100</width>
               <height>0</height>
              </size>
             </property>
@@ -40,12 +40,12 @@
             </property>
             <column>
              <property name="text">
-              <string notr="true">1</string>
+              <string notr="true">Маршрут</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string notr="true">2</string>
+              <string notr="true">Стрелки</string>
              </property>
             </column>
            </widget>

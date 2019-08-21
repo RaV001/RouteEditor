@@ -159,12 +159,12 @@ void MainWindow::slotImport()
 
         root = loader->getRoot();
 
-        osg::ref_ptr<osg::Geode> line = drawLineTraj(zds_traj1->getNodes());
-        osg::ref_ptr<osg::Geode> line2 = drawLineTraj(zds_traj2->getNodes());
+        osg::ref_ptr<osg::Geode> line = drawPyramid(*zds_traj1->getNodes()[0],*zds_traj1->getNodes()[1],osg::Vec4(1.0f, 0.0f, 0.0f, 1.0f), 0.1f, 1.f);
+        //osg::ref_ptr<osg::Geode> line2 = drawPyramid(*zds_traj1->getNodes()[1],*zds_traj1->getNodes()[2],osg::Vec4(1.0f, 1.0f, 1.0f, 1.0f), 5.f, 5.f);
 
         viewerWidget->getScene()->addChild(root.get());
         viewerWidget->getScene()->addChild(line.get());
-        viewerWidget->getScene()->addChild(line2.get());
+        //viewerWidget->getScene()->addChild(line2.get());
 
     }
 

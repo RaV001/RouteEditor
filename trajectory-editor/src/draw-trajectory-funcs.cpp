@@ -1,8 +1,20 @@
 #include    "draw-trajectory-funcs.h"
 
-osg::ref_ptr<osg::Geode> drawLineTraj(const std::vector<osg::Vec3 *> nodes,
+osg::ref_ptr<osg::Group> drawLineTraj(const std::vector<osg::Vec3 *> nodes,
                                       osg::Vec4 color, float thickness, float height)
 {
+
+   osg::ref_ptr<osg::Group> root = new osg::Group;
+
+   for(size_t i = 0; i < nodes.size() - 1; ++i)
+   {
+
+       osg::ref_ptr<osg::Geode> geode =  drawPyramid(*nodes[i], *nodes[i+1], color, thickness, height);
+
+       root->addChild(geode.get());
+   }
+
+   return root;
 
 }
 

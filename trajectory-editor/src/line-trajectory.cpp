@@ -1,7 +1,17 @@
-#include    "draw-trajectory-funcs.h"
+#include    "line-trajectory.h"
 
-osg::ref_ptr<osg::Group> drawLineTraj(const std::vector<osg::Vec3 *> nodes,
-                                      osg::Vec4 color, float thickness, float height)
+LineTrajectory::LineTrajectory()
+{
+
+}
+
+LineTrajectory::~LineTrajectory()
+{
+
+}
+
+osg::ref_ptr<osg::Group> LineTrajectory::drawLineTraj(const std::vector<osg::Vec3 *> nodes,
+                                      osg::Vec4 color, float thickness, float height) const
 {
 
    osg::ref_ptr<osg::Group> root = new osg::Group;
@@ -18,8 +28,13 @@ osg::ref_ptr<osg::Group> drawLineTraj(const std::vector<osg::Vec3 *> nodes,
 
 }
 
-osg::ref_ptr<osg::Geode> drawPyramid(osg::Vec3 node, osg::Vec3 node2,
-                                     osg::Vec4 color, float thickness, float height)
+void LineTrajectory::changeColor(osg::Vec4 color)
+{
+
+}
+
+osg::ref_ptr<osg::Geode> LineTrajectory::drawPyramid(osg::Vec3 node, osg::Vec3 node2,
+                                     osg::Vec4 color, float thickness, float height) const
 {
     const float rad = 0.523599f; //30 градусов в радианах
 
@@ -35,20 +50,14 @@ osg::ref_ptr<osg::Geode> drawPyramid(osg::Vec3 node, osg::Vec3 node2,
     osg::Vec3 b2 = osg::Vec3(node2.x() - thickness * cosf(rad), node2.y(), node2.z() - thickness * sinf(rad));
     osg::Vec3 c2 = osg::Vec3(node2.x() + thickness * cosf(rad), node2.y(), node2.z() - thickness * sinf(rad));
 
-    osg::ref_ptr<osg::Vec3Array> vertices = new osg::Vec3Array(6);
-    /*vertices->push_back(a);
+    osg::ref_ptr<osg::Vec3Array> vertices = new osg::Vec3Array();
+    vertices->push_back(a);
     vertices->push_back(b);
     vertices->push_back(c);
     vertices->push_back(a2);
     vertices->push_back(b2);
-    vertices->push_back(c2);*/
-
-    (*vertices)[0].set(a);
-    (*vertices)[1].set(b);
-    (*vertices)[2].set(c);
-    (*vertices)[3].set(a2);
-    (*vertices)[4].set(b2);
-    (*vertices)[5].set(c2);
+    vertices->push_back(c2);
+    vertices->resize(6);
 
     osg::ref_ptr<osg::Vec4Array> colors = new osg::Vec4Array;
     colors->push_back(color);
@@ -66,6 +75,7 @@ osg::ref_ptr<osg::Geode> drawPyramid(osg::Vec3 node, osg::Vec3 node2,
     osg::ref_ptr<osg::Geometry> pyramid = new osg::Geometry;
     pyramid->setVertexArray(vertices.get());
     pyramid->setColorArray(colors.get());
+    pyramid->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
     pyramid->addPrimitiveSet(indices.get());
 
     osg::ref_ptr<osg::Geode> root = new osg::Geode;

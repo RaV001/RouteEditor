@@ -159,10 +159,13 @@ void MainWindow::slotImport()
 
         root = loader->getRoot();
 
-        osg::ref_ptr<osg::Group> line_traj1 = drawLineTraj(zds_traj1->getNodes(),
-                                                           osg::Vec4(1.0f, 0.0f, 0.0f, 1.0f), 0.1f, 1.f);
-        osg::ref_ptr<osg::Group> line_traj2 = drawLineTraj(zds_traj2->getNodes(),
-                                                           osg::Vec4(1.0f, 0.0f, 0.0f, 1.0f), 0.1f, 1.f);
+        LineTrajectory l;
+        LineTrajectory l2;
+
+        osg::ref_ptr<osg::Group> line_traj1 = l.drawLineTraj(zds_traj1->getNodes(),
+                                                           osg::Vec4(1.0f, 1.0f, 0.0f, 1.0f), 0.1f, 1.f);
+        osg::ref_ptr<osg::Group> line_traj2 = l2.drawLineTraj(zds_traj2->getNodes(),
+                                                           osg::Vec4(1.0f, 1.0f, 0.0f, 1.0f), 0.1f, 1.f);
 
         viewerWidget->getScene()->addChild(root.get());
         viewerWidget->getScene()->addChild(line_traj1.get());

@@ -12,7 +12,7 @@
 #include    "abstract-loader.h"
 #include    "scene-loader.h"
 #include    "trajectorytree.h"
-#include    "draw-trajectory-funcs.h"
+#include    "line-trajectory.h"
 
 //------------------------------------------------------------------------------
 //

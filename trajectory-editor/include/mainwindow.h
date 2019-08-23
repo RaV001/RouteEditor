@@ -37,8 +37,8 @@ public:
 
 private:
 
-    const QString ROUTE1 = "route1";
-    const QString ROUTE2 = "route2";
+    const QString ROUTE1;
+    const QString ROUTE2;
 
     Ui::MainWindow      *ui;
 

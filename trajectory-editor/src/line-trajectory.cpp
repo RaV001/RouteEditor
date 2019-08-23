@@ -1,6 +1,6 @@
 #include    "line-trajectory.h"
 
-LineTrajectory::LineTrajectory()
+LineTrajectory::LineTrajectory(): root(new osg::Group)
 {
 
 }
@@ -14,8 +14,6 @@ osg::ref_ptr<osg::Group> LineTrajectory::drawLineTraj(const std::vector<osg::Vec
                                       osg::Vec4 color, float thickness, float height) const
 {
 
-   osg::ref_ptr<osg::Group> root = new osg::Group;
-
    for(size_t i = 0; i < nodes.size() - 1; ++i)
    {
 
@@ -25,18 +23,37 @@ osg::ref_ptr<osg::Group> LineTrajectory::drawLineTraj(const std::vector<osg::Vec
    }
 
    return root;
-
 }
 
 void LineTrajectory::changeColor(osg::Vec4 color)
 {
 
+     for (size_t i = 0; i < root->getNumChildren(); ++i)
+     {
+       osg::ref_ptr<osg::Geode> geode = root->getChild(i)->asGeode();
+
+       //osg::Geode* root3 = dynamic_cast<osg::Geode*>( root2.get());
+
+       osg::ref_ptr<osg::Geometry> pyramid = dynamic_cast<osg::Geometry*> (geode->getDrawable(0));
+
+       osg::ref_ptr<osg::Vec4Array> colors = new osg::Vec4Array();
+       colors->push_back(color);
+       colors->push_back(color);
+       colors->push_back(color);
+       colors->push_back(color);
+       colors->push_back(color);
+       colors->push_back(color);
+
+       pyramid->setColorArray(colors.get());
+       pyramid->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
+
+     }
 }
 
 osg::ref_ptr<osg::Geode> LineTrajectory::drawPyramid(osg::Vec3 node, osg::Vec3 node2,
                                      osg::Vec4 color, float thickness, float height) const
 {
-    const float rad = 0.523599f; //30 градусов в радианах
+    const float rad = osg::DegreesToRadians(30.f); //0.523599f; //30 градусов в радианах
 
     node.z() += height;
 
@@ -59,7 +76,7 @@ osg::ref_ptr<osg::Geode> LineTrajectory::drawPyramid(osg::Vec3 node, osg::Vec3 n
     vertices->push_back(c2);
     vertices->resize(6);
 
-    osg::ref_ptr<osg::Vec4Array> colors = new osg::Vec4Array;
+    osg::ref_ptr<osg::Vec4Array> colors = new osg::Vec4Array();
     colors->push_back(color);
     colors->push_back(color);
     colors->push_back(color);

@@ -32,6 +32,9 @@ QViewerWidget::QViewerWidget(const QRect &geometry)
         layout->addWidget(gw->getGLWidget());
         this->setLayout(layout);
     }
+
+    osg::StateSet *st = scene->getOrCreateStateSet();
+    st->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
 }
 
 //------------------------------------------------------------------------------

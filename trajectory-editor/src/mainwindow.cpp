@@ -8,6 +8,8 @@
 //
 //------------------------------------------------------------------------------
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+  , ROUTE1("route1")
+  , ROUTE2("route2")
   , ui(new Ui::MainWindow)
   , viewerWidget(Q_NULLPTR)
   , root(Q_NULLPTR)
@@ -166,6 +168,7 @@ void MainWindow::slotImport()
                                                            osg::Vec4(1.0f, 1.0f, 0.0f, 1.0f), 0.1f, 1.f);
         osg::ref_ptr<osg::Group> line_traj2 = l2.drawLineTraj(zds_traj2->getNodes(),
                                                            osg::Vec4(1.0f, 1.0f, 0.0f, 1.0f), 0.1f, 1.f);
+        l.changeColor(osg::Vec4(1.0f, 0.0f, 0.0f, 0.0f));
 
         viewerWidget->getScene()->addChild(root.get());
         viewerWidget->getScene()->addChild(line_traj1.get());

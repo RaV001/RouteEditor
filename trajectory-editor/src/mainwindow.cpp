@@ -170,9 +170,20 @@ void MainWindow::slotImport()
                                                            osg::Vec4(1.0f, 1.0f, 0.0f, 1.0f), 0.1f, 1.f);
         l.changeColor(osg::Vec4(1.0f, 0.0f, 0.0f, 0.0f));
 
+        //settings_t st;
+        //st.free_cam_init_pos = osg::Vec3(110.0, 100.0, 110.0);
+
+        //osg::ref_ptr<FreeManipulator> control = new FreeManipulator(st);
+
+        //osg::ref_ptr<CameraSwitcher> cs = new CameraSwitcher;
+        //cs->addMatrixManipulator(osgGA::GUIEventAdapter::KEY_F2, "", control.get());
+
+        //viewerWidget->getViewer()->setCameraManipulator(cs.get());
+
         viewerWidget->getScene()->addChild(root.get());
         viewerWidget->getScene()->addChild(line_traj1.get());
         viewerWidget->getScene()->addChild(line_traj2.get());
+        //viewerWidget->getViewer()->getCamera()->setProjectionMatrixAsOrtho(0.0,0.0,0.0,10.0,1.0,1000.0);
     }
 
     delete loader;

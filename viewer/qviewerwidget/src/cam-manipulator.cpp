@@ -1,9 +1,9 @@
-#include    "train-manipulator.h"
+#include    "cam-manipulator.h"
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-TrainManipulator::TrainManipulator(settings_t settings, QObject *parent)
+CamManipulator::CamManipulator(settings_t settings, QObject *parent)
     : AbstractManipulator(parent)
     , settings(settings)
     , rel_pos(osg::Vec3f(settings.ext_cam_init_shift,
@@ -18,7 +18,7 @@ TrainManipulator::TrainManipulator(settings_t settings, QObject *parent)
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-osg::Matrixd TrainManipulator::getMatrix() const
+osg::Matrixd CamManipulator::getMatrix() const
 {
     osg::Matrix matrix;
 
@@ -32,7 +32,7 @@ osg::Matrixd TrainManipulator::getMatrix() const
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-osg::Matrixd TrainManipulator::getInverseMatrix() const
+osg::Matrixd CamManipulator::getInverseMatrix() const
 {
     osg::Matrix invMatrix = osg::Matrix::inverse(getMatrix());
 
@@ -44,7 +44,7 @@ osg::Matrixd TrainManipulator::getInverseMatrix() const
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-bool TrainManipulator::performMovementRightMouseButton(const double eventTimeDelta,
+bool CamManipulator::performMovementRightMouseButton(const double eventTimeDelta,
                                                        const double dx,
                                                        const double dy)
 {
@@ -61,7 +61,7 @@ bool TrainManipulator::performMovementRightMouseButton(const double eventTimeDel
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-bool TrainManipulator::handleMouseWheel(const osgGA::GUIEventAdapter &ea,
+bool CamManipulator::handleMouseWheel(const osgGA::GUIEventAdapter &ea,
                                         osgGA::GUIActionAdapter &aa)
 {
     Q_UNUSED(aa)
@@ -120,11 +120,20 @@ bool TrainManipulator::handleMouseWheel(const osgGA::GUIEventAdapter &ea,
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-bool TrainManipulator::handleKeyDown(const osgGA::GUIEventAdapter &ea,
+bool CamManipulator::handleKeyDown(const osgGA::GUIEventAdapter &ea,
                                      osgGA::GUIActionAdapter &aa)
 {
     Q_UNUSED(aa)
-
+    /*nodes.push_back(osg::Vec3(3.75f, 0.0, 0.0));
+    nodes.push_back(osg::Vec3(2.75f, 100.0, 4.0));
+    nodes.push_back(osg::Vec3(2.75f, 200.0, 0.0));
+    nodes.push_back(osg::Vec3(2.75f, 300.0, 0.0));
+    nodes.push_back(osg::Vec3(2.75f, 400.0, 0.0));
+    nodes.push_back(osg::Vec3(2.75f, 500.0, 0.0));
+    nodes.push_back(osg::Vec3(2.75f, 600.0, 0.0));
+    nodes.push_back(osg::Vec3(2.75f, 700.0, 0.0));
+    nodes.push_back(osg::Vec3(2.75f, 800.0, 0.0));
+    nodes.push_back(osg::Vec3(3.75f, 900.0, 0.0));*/
     switch (ea.getKey())
     {
     case osgGA::GUIEventAdapter::KEY_Left:
@@ -136,13 +145,23 @@ bool TrainManipulator::handleKeyDown(const osgGA::GUIEventAdapter &ea,
 
         rel_pos.x() += settings.ext_cam_speed * delta_time;
         break;
+
+    case osgGA::GUIEventAdapter::KEY_Up:
+
+        rel_pos.y() -= settings.ext_cam_speed * delta_time;
+        break;
+
+    case osgGA::GUIEventAdapter::KEY_Down:
+
+        rel_pos.y() += settings.ext_cam_speed * delta_time;
+        break;
     }
 }
 
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-TrainManipulator::~TrainManipulator()
+CamManipulator::~CamManipulator()
 {
 
 }

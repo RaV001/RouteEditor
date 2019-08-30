@@ -14,6 +14,11 @@
 #include    "trajectorytree.h"
 #include    "line-trajectory.h"
 
+#include    "free-manipulator.h"
+#include    "settings.h"
+#include    "camera-switcher.h"
+#include    "cam-manipulator.h"
+
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------

@@ -7,11 +7,11 @@
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-class TrainManipulator : public AbstractManipulator
+class CamManipulator : public AbstractManipulator
 {
 public:
 
-    TrainManipulator(settings_t settings, QObject *parent = Q_NULLPTR);
+    CamManipulator(settings_t settings, QObject *parent = Q_NULLPTR);
 
     virtual osg::Matrixd getMatrix() const;
 
@@ -29,7 +29,7 @@ public:
 
 protected:
 
-    virtual ~TrainManipulator();
+    virtual ~CamManipulator();
 
 private:
 

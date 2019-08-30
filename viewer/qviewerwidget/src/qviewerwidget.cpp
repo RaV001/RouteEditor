@@ -8,7 +8,7 @@
 
 #include    "camera-switcher.h"
 #include    "free-manipulator.h"
-#include    "train-manipulator.h"
+#include    "cam-manipulator.h"
 
 //------------------------------------------------------------------------------
 //
@@ -33,7 +33,7 @@ QViewerWidget::QViewerWidget(const QRect &geometry)
         this->setLayout(layout);
     }
 
-    osg::StateSet *st = scene->getOrCreateStateSet();
+    osg::StateSet *st = scene->getOrCreateStateSet(); //изменение режима освещения
     st->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
 }
 
@@ -107,7 +107,13 @@ void QViewerWidget::initCamera(const QRect &geometry)
     camera->setProjectionMatrixAsPerspective(settings.fovy, aspect, settings.zNear, settings.zFar);
 
     // Define camera manipulators
-    osg::ref_ptr<TrainManipulator> tm = new TrainManipulator(settings);
+    settings.ext_cam_speed = 100.0f;
+    settings.free_cam_speed = 100.0f;
+
+    settings.ext_cam_init_dist = 100.0f;
+    settings.free_cam_init_pos = osg::Vec3(100.0f, 100.0f, 100.0f);
+
+    osg::ref_ptr<CamManipulator> tm = new CamManipulator(settings);
     osg::ref_ptr<FreeManipulator>  fm = new FreeManipulator(settings);
 
     osg::ref_ptr<CameraSwitcher> cs = new CameraSwitcher;

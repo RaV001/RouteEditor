@@ -88,6 +88,9 @@ bool FreeManipulator::handleKeyDown(const osgGA::GUIEventAdapter &ea,
 {
     Q_UNUSED(aa)
 
+    osgViewer::Viewer *viewer = static_cast<osgViewer::Viewer *>(&aa);
+    camera = viewer->getCamera();
+
     osg::Vec3 eye, center, up;
     camera->getViewMatrixAsLookAt(eye, center, up, 100.0);
 
@@ -143,6 +146,9 @@ bool FreeManipulator::handleMouseWheel(const osgGA::GUIEventAdapter &ea,
                                        osgGA::GUIActionAdapter &aa)
 {
     Q_UNUSED(aa)
+
+    osgViewer::Viewer *viewer = static_cast<osgViewer::Viewer *>(&aa);
+    camera = viewer->getCamera();
 
     double fovy = 0;
     double aspectRatio = 0;

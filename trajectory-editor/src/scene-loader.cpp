@@ -260,5 +260,3 @@ ReadResult SceneLoader::loadObjectMap(std::istream &stream)
     emit logMessage((tr("File read success ") + "route1.map"), Qt::blue);
     return FILE_READ_SUCCESS;
 }
-
-GET_ROUTE_LOADER(SceneLoader)

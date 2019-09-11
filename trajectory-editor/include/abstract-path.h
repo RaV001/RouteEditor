@@ -14,16 +14,10 @@
 
 #include    "basis.h"
 
-#ifdef ROUTE_LOADER_LIB
-    #define ROUTE_LOADER_EXPORT Q_DECL_EXPORT
-#else
-    #define ROUTE_LOADER_EXPORT Q_DECL_IMPORT
-#endif
-
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-class ROUTE_LOADER_EXPORT MotionPath : public osg::Referenced
+class MotionPath : public osg::Referenced
 {
 public:
 

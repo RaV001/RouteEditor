@@ -106,21 +106,6 @@ bool RoutePath::load(const std::string &track_file_path)
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-float arg(float cos_x, float sin_x)
-{
-    float angle = 0;
-
-    if (sin_x >= 0.0f)
-        angle = acosf(cos_x);
-    else
-        angle = -acosf(cos_x);
-
-    return angle;
-}
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
 bool RoutePath::load(std::istream &stream)
 {
     track_data_t tmp_data;

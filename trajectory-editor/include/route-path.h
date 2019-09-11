@@ -22,7 +22,8 @@
 #include    <osgDB/FileUtils>
 #include    <osgDB/FileNameUtils>
 
-#include    "track.h"
+#include    "track-data.h"
+#include    "math-funcs.h"
 
 //------------------------------------------------------------------------------
 //

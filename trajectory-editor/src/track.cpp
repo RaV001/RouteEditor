@@ -26,21 +26,6 @@ TrajectoryTrack::TrajectoryTrack()
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-float arg(float cos_x, float sin_x)
-{
-    float angle = 0;
-
-    if (sin_x >= 0.0f)
-        angle = acosf(cos_x);
-    else
-        angle = -acosf(cos_x);
-
-    return angle;
-}
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
 TrajectoryTrack::TrajectoryTrack(const zds_track_data_t &zds_track_data,
                                  const float railway_coord,
                                  const int uid)

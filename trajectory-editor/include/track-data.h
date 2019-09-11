@@ -11,8 +11,8 @@
  * \author maisvendoo
  */
 
-#ifndef     TRACK_H
-#define     TRACK_H
+#ifndef TRACKDATA_H
+#define TRACKDATA_H
 
 #include    <string>
 #include    <vector>
@@ -66,4 +66,4 @@ struct track_t
 //------------------------------------------------------------------------------
 typedef std::vector<track_t>    track_data_t;
 
-#endif // TRACK_H
+#endif // TRACKDATA_H

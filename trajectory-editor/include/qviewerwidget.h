@@ -9,16 +9,10 @@
 
 #include    "settings.h"
 
-#if defined(QVIEWER_WIDGET_LIB)
-    #define QVIEWER_EXPORT  Q_DECL_EXPORT
-#else
-    #define QVIEWER_EXPORT  Q_DECL_IMPORT
-#endif
-
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-class QVIEWER_EXPORT QViewerWidget : public QWidget
+class QViewerWidget : public QWidget
 {
 public:
 

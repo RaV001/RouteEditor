@@ -40,11 +40,6 @@ win32 {
         LIBS += -L$$OSG_LIB_DIRECTORY -losgQt5d
         LIBS += -L$$OSG_LIB_DIRECTORY -losgAnimationd
 
-        LIBS += -L../../lib -lroute-loader_d
-        LIBS += -L../../lib -lQOSGViewerWidget_d
-
-        LIBS += -L../../plugins -lzds-route-loader_d
-
     } else {
 
         LIBS += -L$$OSG_LIB_DIRECTORY -losg
@@ -54,11 +49,6 @@ win32 {
         LIBS += -L$$OSG_LIB_DIRECTORY -losgGA
         LIBS += -L$$OSG_LIB_DIRECTORY -losgQt5
         LIBS += -L$$OSG_LIB_DIRECTORY -losgAnimation
-
-        LIBS += -L../../lib -lroute-loader
-        LIBS += -L../../lib -lQOSGViewerWidget
-
-        LIBS += -L../../plugins -lzds-route-loader
     }
 
     INCLUDEPATH += $$OSG_INCLUDE_DIRECTORY
@@ -78,11 +68,6 @@ unix {
         LIBS += -losgQt5d
         LIBS += -losgAnimationd
 
-        LIBS += -L../../lib -lroute-loader_d
-        LIBS += -L../../lib -lQOSGViewerWidget_d
-
-        LIBS += -L../../plugins -lzds-route-loader_d
-
     } else {
 
         LIBS +=  -losg
@@ -92,18 +77,10 @@ unix {
         LIBS +=  -losgGA
         LIBS +=  -losgQt5
         LIBS +=  -losgAnimation
-
-        LIBS += -L../../lib -lroute-loader
-        LIBS += -L../../lib -lQOSGViewerWidget
-
-        LIBS += -L../../plugins -lzds-route-loader
     }
 }
 
 INCLUDEPATH += ./include
-INCLUDEPATH += ../viewer/qviewerwidget/include
-INCLUDEPATH += ../viewer/route-loader/include
-INCLUDEPATH += ../viewer/zds-route-loader/include
 
 SOURCES += $$files(./src/*.cpp)
 

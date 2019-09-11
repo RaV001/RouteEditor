@@ -21,12 +21,6 @@
 
 #include    <QObject>
 
-#ifdef ROUTE_LOADER_LIB
-    #define ROUTE_LOADER_EXPORT Q_DECL_EXPORT
-#else
-    #define ROUTE_LOADER_EXPORT Q_DECL_IMPORT
-#endif
-
 #include    "abstract-path.h"
 
 //------------------------------------------------------------------------------
@@ -42,7 +36,7 @@ enum ReadResult
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-class ROUTE_LOADER_EXPORT RouteLoader : public QObject
+class RouteLoader : public QObject
 {
     Q_OBJECT
 
@@ -80,19 +74,5 @@ protected:
     /// Load data from route config file
     virtual ReadResult loadDataFile(const std::string &filepath) = 0;
 };
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
-typedef RouteLoader* (*GetRouteLoader)();
-
-//------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------
-#define GET_ROUTE_LOADER(ClassName) \
-    extern "C" Q_DECL_EXPORT RouteLoader *getRouteLoader() \
-    {\
-        return new (ClassName)(); \
-    }
 
 #endif

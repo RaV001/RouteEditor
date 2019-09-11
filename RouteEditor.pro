@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 CONFIG += ordered
 
-SUBDIRS += ./viewer
+SUBDIRS += ./osgdb_dmd
 SUBDIRS += ./trajectory-editor
 SUBDIRS += ./CfgReader
 SUBDIRS += ./cfg-editor

@@ -6,6 +6,7 @@
 
 #include    "basis.h"
 #include    "zds-track-data.h"
+#include    "math-funcs.h"
 
 //------------------------------------------------------------------------------
 //
